@@ -1,0 +1,44 @@
+ID,Category,Title,Content,Severity
+0,Warning Signs,Smelling of Alcohol,"Individuals who frequently emit the odor of alcohol from their breath may be in the early stages of developing an alcohol problem, suggesting increased and possibly secretive consumption.",3
+1,Warning Signs,Slurred Speech,"Exhibiting slurred speech consistently, especially during inappropriate times or without other medical reasons, can indicate early signs of excessive alcohol consumption affecting speech clarity.",4
+2,Warning Signs,Lack of Coordination,"Early signs of alcoholism may include noticeable difficulties with coordination, such as stumbling or an impaired ability to perform routine tasks, suggesting an impact on motor skills.",5
+3,Warning Signs,Nausea or Vomiting,"Frequent episodes of nausea or vomiting after drinking alcohol could be an early warning sign, suggesting the body's adverse reaction to excessive alcohol intake.",4
+4,Warning Signs,Frequent Hangovers,"Regularly experiencing hangovers, characterized by headaches, dehydration, and other discomforts the morning after drinking, can signal the body�s struggle to manage alcohol effects.",4
+5,Warning Signs,Memory Loss or Blackouts,"Experiencing memory lapses or blackouts during or after drinking sessions is a significant early warning of alcohol misuse, indicating that alcohol is impacting brain function.",6
+6,Warning Signs,Accidents or Injuries,"An increase in accidents or injuries, particularly when under the influence, can be a warning sign. This might indicate impairment of judgment and motor skills due to alcohol.",5
+7,Warning Signs,Drinking Despite Physical Conditions,"Consuming alcohol despite having physical conditions that can worsen with alcohol use, like liver disease or ulcers, points to early problematic behavior.",6
+8,Warning Signs,Interference with Daily Responsibilities,"Alcohol consumption that repeatedly interferes with fulfilling work, school, or home duties is an early sign of problematic drinking.",5
+9,Warning Signs,Using Alcohol in Risky Situations,"Engaging in drinking before or while performing tasks that require focus and coordination, such as driving or operating machinery, is a dangerous early warning sign.",7
+10,Warning Signs,Increased Tolerance,"Needing to drink more alcohol to achieve the same effects previously attained with less, suggests an adapting tolerance, an early sign of dependency development.",5
+11,Warning Signs,Withdrawal Symptoms,"Experiencing symptoms like shaking, anxiety, or irritability when not drinking indicates developing physical dependence, pointing towards initial stages of alcoholism.",6
+12,Warning Signs,Secrecy About Drinking,"Hiding drinking habits or lying about the amount consumed is an early sign of alcoholism, suggesting guilt or awareness of problematic consumption.",5
+13,Warning Signs,Loss of Interest in Hobbies,"A noticeable decrease in involvement or enjoyment in hobbies or activities once enjoyed, as drinking becomes a priority, indicates early addictive behaviors.",5
+14,Warning Signs,Neglecting Appearance,Neglecting personal grooming or general appearance may be noticeable early on as focus and resources shift more towards alcohol consumption.,4
+15,Warning Signs,Drinking Alone or in Secret,"Increasing patterns of drinking alone or in secrecy can denote an early stage in alcohol dependence, avoiding judgment from others.",5
+16,Warning Signs,Defensiveness About Drinking,Becoming defensive or aggressive when confronted about alcohol consumption may indicate an awareness of the growing problem.,4
+17,Warning Signs,Isolation from Social Activities,"Withdrawing from social gatherings and activities, especially those not involving alcohol, might indicate a rising dependence on alcohol for social function.",5
+18,Warning Signs,Changes in Social Circle,Shifting social groups to include those who drink more heavily can signify adapting lifestyle to accommodate increased alcohol use.,4
+19,Warning Signs,Justifying Alcohol Use,Fabricating excuses or rationalizing drinking to mask the severity of the situation points to early denial phases of alcoholism.,4
+20,Warning Signs,Persistent Cravings,"Feeling a strong, persistent desire to drink alcohol throughout the day is a clear early warning of a developing alcohol problem, showing increased mental preoccupation with alcohol.",6
+21,Warning Signs,Increased Irritability,Heightened irritability or mood swings linked directly to drinking or periods between drinks can be one of the early psychological signs of alcohol influence.,5
+22,Warning Signs,Frequent Legal Issues,"Facing legal problems directly related to alcohol use, like DUIs or public intoxication charges, reflect impairment in judgment often seen in initial problem drinking stages.",6
+23,Warning Signs,Financial Problems,Occurrence of financial difficulties due to prioritized spending on alcohol over other necessities signals an escalating issue with alcohol.,5
+24,Warning Signs,Emotional Withdrawal,"As emotional regulation becomes more tied to alcohol, individuals may notice periods of emotional withdrawal when not drinking, pointing to dependency.",5
+25,Warning Signs,Denial of Alcohol Issue,Denying the existence of a drinking problem or its severity despite clear signs and consequences is a typical early behavioral sign of alcohol abuse.,5
+26,Warning Signs,Obsessive Planning Around Alcohol,Structuring daily plans or activities around alcohol availability and consumption showcases the increasing centrality of alcohol in one's life.,5
+27,Warning Signs,Misplaced Priorities,Placing alcohol above critical life responsibilities and relationships indicates foundational shifts towards addictive behavior.,6
+28,Warning Signs,Decreased Performance at Work/School,Notable dips in productivity and performance at work or school due to alcohol effects can denote the beginning stages of alcohol-induced impairments.,5
+29,Warning Signs,Impaired Decision-Making,Demonstrating poor or dangerous decision-making skills in scenarios involving alcohol suggests impaired cognitive function related to early alcohol misuse.,6
+30,Warning Signs,Anxiety or Nervousness,Increases in baseline levels of anxiety or nervousness related to thoughts about drinking or alcohol availability signify psychological dependencies beginning to form.,5
+31,Warning Signs,Overwhelming Guilt Post-Drinking,"Experiencing intense guilt or regret following drinking episodes indicates recognition of the problem, which is important in early stages of acknowledgment.",4
+32,Warning Signs,Physical Deterioration,"Noticable deterioration in physical health such as persistent fatigue, poor skin condition, or weakened immune response may be correlated with increasing alcohol use.",5
+33,Warning Signs,Unexplained Injuries,Waking up with unexplained bruises or injuries following nights of drinking can be an alarming early indication of risky behaviors under the influence.,5
+34,Warning Signs,Shift in Eating Habits,"Significant changes in eating patterns, either reduced appetite or specific cravings, can accompany early stages of alcohol misuse.",4
+35,Warning Signs,Rapid Mood Fluctuations,Rapid and extreme changes in mood in relation to drinking or alcohol availability highlight emotional instability influenced by early alcohol misuse.,5
+36,Warning Signs,Disinterest in Future Planning,"Showing apathy towards long-term goals or plans, focusing more immediately on lifestyle revolving around alcohol.",4
+37,Warning Signs,Increased Conflict in Relationships,Escalation in arguments or conflicts in personal relationships can be fueled by changes in behavior and temper associated with alcohol use.,6
+38,Warning Signs,Feelings of Isolation,"If drinking leads to feelings of isolation or loneliness, this could be a manifestation of the social repercussions of early alcohol dependence.",5
+39,Warning Signs,Excuses for Drinking,Creating excuses for why drinking is necessary or deserved suggests cognitive biases adjusting to support increasing alcohol use.,4
+40,Warning Signs,Compromising Safety for Alcohol,Making decisions that compromise personal or others' safety in order to consume alcohol indicates increasing disregard for consequences.,7
+41,Warning Signs,Neglecting Health Appointments,Avoiding doctor's appointments or neglecting medical advice due to drinking habits points to a growing disregard for health due to alcohol preference.,5
+42,Warning Signs,Resistance to Discuss Drinking,Avoidance or resistance to discuss drinking habits when broached by friends or family may reveal sensitivity or defensiveness about the topic.,4
