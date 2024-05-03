@@ -232,18 +232,22 @@ class GCPCSP(CSPBase):
 
     def start_conversation(self, prompt, history, state):
         response, history = self._get_category(prompt, history.copy())
+        categories = [int(i) for i in response if i.isnumeric()]
+
+
         # Uncomment the return below to see the output of the above func on streamlit on prompt enter
-        return response, history, state
+        # print(categories)
+        # return response, history, state
 
         # Process categories
-        categories = response.split(",")
         index = None
         if len(categories) == 1:
             index = categories[0]
         elif len(categories) > 1:
             response, history = self._narrow_category_follow_up(prompt, history.copy(), categories)
+            print(response)
             # Uncomment the return below to see the output of the above func on streamlit on prompt enter
-            # return response, history, state
+            return response, history, state
 
         # Narrow Category function is not required if we are not using state
 
@@ -252,7 +256,7 @@ class GCPCSP(CSPBase):
             # Uncomment the return below to see the output of the above func on streamlit on prompt enter
             # return response, history, state
 
-        response_holder, holder_length = self.simple_hs(prompt, index_name=state, project_id='hallowed-air-418016')
+        response_holder, holder_length = self.simple_hs(prompt, index_name=index, project_id='hallowed-air-418016')
         final_prompt = self._create_context(prompt, response_holder) # Create the context and final prompt in this
 
         response, history = self.chat_client.get_response(final_prompt, history.copy())
@@ -317,8 +321,6 @@ class GCPCSP(CSPBase):
             """
 
         response, history = self.chat_client.get_response(final_prompt, history.copy())
-
-        categories = response.split(",")
         return response, history
 
 
@@ -334,7 +336,8 @@ class GCPCSP(CSPBase):
     def _narrow_category_follow_up(self, prompt, history, categories):
         final_prompt = f"""
         {generate_follow_up_prompt}
-        {prompt}
+         Here are the categories we think this question could apply to: {categories}
+        Here is the user prompt: {prompt}
         """
 
         return self.chat_client.get_response(final_prompt, history.copy())
