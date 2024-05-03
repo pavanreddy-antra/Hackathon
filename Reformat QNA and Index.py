@@ -1,6 +1,13 @@
 import pandas
 import pandas as pd
 import os
+import sys
+
+for i, path in enumerate(os.listdir("Data")):
+    category = path.split("-")[-1].lstrip(" ").lower().replace(" ", "_")
+    print(f"{i+1}: \"{category}\",")
+
+sys.exit()
 
 for path in os.listdir("Data"):
     category = path.split("-")[-1].lstrip(" ")

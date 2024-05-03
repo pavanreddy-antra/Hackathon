@@ -15,9 +15,11 @@ import os
 import time
 
 from dotenv import load_dotenv
+
 load_dotenv()
 
 alpha = 0.5
+
 
 class GCPCSP(CSPBase):
     def __init__(self, embeddings=None, chat=None, stt=None, *args, **kwargs):
@@ -38,7 +40,7 @@ class GCPCSP(CSPBase):
             self.stt_client = GCPSTT(kwargs.get('gcp_api_key', None))
         else:
             raise NotImplemented(f"STT Client {stt} not Implemented")
-        
+
         if chat == 'openai' or chat is None:
             if chat is None: print("No chat client provided. Setting Default: OpenAI")
             self.chat_client = OpenAIChat(kwargs.get('openai_api_key', None))
@@ -47,9 +49,9 @@ class GCPCSP(CSPBase):
         else:
             raise NotImplemented(f"Chat Client {chat} not Implemented")
 
-        self.credentials = service_account.Credentials.from_service_account_file('C:\\Users\\Pavan Reddy\\Desktop\\Hackathon\\credentials\\google keys\\stt.json')
+        self.credentials = service_account.Credentials.from_service_account_file(
+            'C:\\Users\\Pavan Reddy\\Desktop\\Hackathon\\credentials\\google keys\\stt.json')
         # self.index_client = SearchIndexClient(endpoint=os.getenv("AZURE_ENDPOINT"), credential=search_credential)
-
 
     def index_data(self, file_path, project_id, dataset_name="alcohol", location="us-central1"):
         for path in os.listdir(file_path):
@@ -147,7 +149,6 @@ class GCPCSP(CSPBase):
     #         index=my_index, deployed_index_id=DEPLOYED_INDEX_ID
     #     )
 
-
     def simple_hs(self, prompt, index_name, project_id):
         dataset = "alcohol"
         location = "us-central1"
@@ -234,7 +235,6 @@ class GCPCSP(CSPBase):
         response, history = self._get_category(prompt, history.copy())
         categories = [int(i) for i in response if i.isnumeric()]
 
-
         # Uncomment the return below to see the output of the above func on streamlit on prompt enter
         # print(categories)
         # return response, history, state
@@ -242,7 +242,7 @@ class GCPCSP(CSPBase):
         # Process categories
         index = None
         if len(categories) == 1:
-            index = categories[0]
+            index = id_map[categories[0]]
         elif len(categories) > 1:
             response, history = self._narrow_category_follow_up(prompt, history.copy(), categories)
             print(response)
@@ -250,21 +250,21 @@ class GCPCSP(CSPBase):
             return response, history, state
 
         # Narrow Category function is not required if we are not using state
+        print("253", index)
 
-        if index == "Out of category":
-            response, history = self._process_out_of_category()
+        if index == "out_of_category" or index == "general":
+            print(index)
+            response, history = self._process_out_of_category(prompt, history.copy(), index)
             # Uncomment the return below to see the output of the above func on streamlit on prompt enter
-            # return response, history, state
+            return response, history, state
 
-        response_holder, holder_length = self.simple_hs(prompt, index_name=index, project_id='hallowed-air-418016')
-        final_prompt = self._create_context(prompt, response_holder) # Create the context and final prompt in this
-
-        response, history = self.chat_client.get_response(final_prompt, history.copy())
-
-        # Uncomment the return below to see the output of the above func on streamlit on prompt enter
+        # response_holder, holder_length = self.simple_hs(prompt, index_name=index, project_id='hallowed-air-418016')
+        # final_prompt = self._create_context(prompt, response_holder)  # Create the context and final prompt in this
+        #
+        # response, history = self.chat_client.get_response(final_prompt, history.copy())
+        #
+        # # Uncomment the return below to see the output of the above func on streamlit on prompt enter
         # return response, history, state
-
-
 
     # def start_conversation(self, prompt, history, state):
     #     if state == "started":
@@ -306,7 +306,6 @@ class GCPCSP(CSPBase):
     #
     #     response, history = self.chat_client.get_response(prompt, history.copy())
     #     return response, history, state
-    
 
     def _get_category(self, prompt, history):
         if len(history) == 0:
@@ -323,15 +322,20 @@ class GCPCSP(CSPBase):
         response, history = self.chat_client.get_response(final_prompt, history.copy())
         return response, history
 
+    def _process_out_of_category(self, prompt, history, index):
+        if index == "out_of_category":
+            final_prompt = f"""
+                            {out_of_category_prompt}
+                            {prompt}
+                            """
+        else:
+            final_prompt = f"""
+                            {prompt}
+                            """
 
+        print(final_prompt)
 
-    def _process_out_of_category(self, prompt, history):
-        final_prompt = f"""
-                        {out_of_category_prompt}
-                        {prompt}
-                        """
-
-        return self.chat_client.get_response(prompt, history.copy())
+        return self.chat_client.get_response(final_prompt, history.copy())
 
     def _narrow_category_follow_up(self, prompt, history, categories):
         final_prompt = f"""
@@ -349,16 +353,36 @@ class GCPCSP(CSPBase):
 
         return self.chat_client.get_response(prompt, history.copy())
 
-
     def _create_context(self, prompt, response_holder):
-        pass
+        context = "Here are 5 pieces of source material that you can use to help formulate your response:\n"
+
+        i = 1
+        for item in response_holder:
+            if {item['type']} == 'title':
+                context += f'{i}; Title: {item["title"]}; Content: {item["content"]}; Severity: {item["severity"]}; \n'
+                i += 1
+
+        context += "\nand Here are 5 Questions and Answers relating to this topic that you can also use to help you formulate your response:\n"
+
+        i = 1
+        for item in response_holder:
+            if {item['type']} == 'qna':
+                context += f'{i}; Question: {item["title"]}; Answer: {item["content"]}; \n'
+                i += 1
+
+        final_prompt = f"""
+        System prompt: {system_prompt1}
+        {context}\n
+        and here is the user prompt: {prompt}
+        """
+
+        return final_prompt
 
     def _check_change_in_index(self):
         pass
 
     def speech_to_text(self, audio_data):
         return self.stt_client.get_text(audio_data)
-
 
     def _get_sample_documents(self, documents):
         sample_documents = []
@@ -389,7 +413,6 @@ class GCPCSP(CSPBase):
                         else:
                             time.sleep(1)
 
-
                 document["Title_Vector"] = title_embeddings
                 document["Content_Vector"] = content_embeddings
 
@@ -404,4 +427,3 @@ class GCPCSP(CSPBase):
                 f.write('\n'.join(failed_ids))
 
         return sample_documents
-
