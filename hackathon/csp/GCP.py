@@ -49,8 +49,7 @@ class GCPCSP(CSPBase):
         else:
             raise NotImplemented(f"Chat Client {chat} not Implemented")
 
-        self.credentials = service_account.Credentials.from_service_account_file(
-            'C:\\Users\\Pavan Reddy\\Desktop\\Hackathon\\credentials\\google keys\\stt.json')
+        self.credentials = service_account.Credentials.from_service_account_file(os.getenv("GCP_CREDENTIALS_PATH"))
         # self.index_client = SearchIndexClient(endpoint=os.getenv("AZURE_ENDPOINT"), credential=search_credential)
 
     def index_data(self, file_path, project_id, dataset_name="alcohol", location="us-central1"):
@@ -239,6 +238,8 @@ class GCPCSP(CSPBase):
         # print(categories)
         # return response, history, state
 
+        print(categories)
+
         # Process categories
         index = None
         if len(categories) == 1:
@@ -253,18 +254,17 @@ class GCPCSP(CSPBase):
         print("253", index)
 
         if index == "out_of_category" or index == "general":
-            print(index)
             response, history = self._process_out_of_category(prompt, history.copy(), index)
             # Uncomment the return below to see the output of the above func on streamlit on prompt enter
             return response, history, state
 
-        # response_holder, holder_length = self.simple_hs(prompt, index_name=index, project_id='hallowed-air-418016')
-        # final_prompt = self._create_context(prompt, response_holder)  # Create the context and final prompt in this
-        #
-        # response, history = self.chat_client.get_response(final_prompt, history.copy())
-        #
-        # # Uncomment the return below to see the output of the above func on streamlit on prompt enter
-        # return response, history, state
+        response_holder, holder_length = self.simple_hs(prompt, index_name=index, project_id='hallowed-air-418016')
+        final_prompt = self._create_context(prompt, response_holder)  # Create the context and final prompt in this
+
+        response, history = self.chat_client.get_response(final_prompt, history.copy())
+
+        # Uncomment the return below to see the output of the above func on streamlit on prompt enter
+        return response, history, state
 
     # def start_conversation(self, prompt, history, state):
     #     if state == "started":
@@ -328,14 +328,14 @@ class GCPCSP(CSPBase):
                             {out_of_category_prompt}
                             {prompt}
                             """
+            return self.chat_client.get_response(final_prompt, history.copy())
         else:
             final_prompt = f"""
                             {prompt}
                             """
+            return self.chat_client.get_response(final_prompt, [])
 
-        print(final_prompt)
 
-        return self.chat_client.get_response(final_prompt, history.copy())
 
     def _narrow_category_follow_up(self, prompt, history, categories):
         final_prompt = f"""

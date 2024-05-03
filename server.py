@@ -11,9 +11,9 @@ class Server():
 
     def main(self):
         st.set_page_config(page_title="Chat-ESG", page_icon=":teacher:", layout="wide")
-        st.image("tw.png", width=150)
-        st.title("Techwish - Google AI Hackathon")
-        st.header("How can I help you?")
+        st.image("tw.png", width=200)
+        st.title("Google AI Hackathon Submission")
+        st.header("Talk to Abby, Your Personal Addiction Issues Counselor")
 
         if 'conversation' not in st.session_state:
             st.session_state.conversation = []
@@ -30,7 +30,7 @@ class Server():
 
         if st.button("Send"):
             if user_question:
-                st.session_state.conversation.append(f"You: {user_question}")
+                st.session_state.conversation.append(f"You: {user_question}\n")
 
                 if len(st.session_state.history) >= MESSAGE_HISTORY_LENGTH:
                     active_history = st.session_state.history[-MESSAGE_HISTORY_LENGTH:]
@@ -40,18 +40,13 @@ class Server():
                     st.session_state.history = []
 
                 response, updated_history, updated_state = self.csp.start_conversation(user_question, active_history, st.session_state.state)
-                st.session_state.conversation.append(f"Bot: {response}")
+                st.session_state.conversation.append(f"Abby: {response}\n")
 
                 st.session_state.history = st.session_state.history + updated_history
                 st.session_state.state = updated_state
 
-        for i, message in enumerate(reversed(st.session_state.conversation)):
-            if i % 2 == 0:
-                st.write(user_template.replace(
-                    "{{MSG}}", message), unsafe_allow_html=True)
-            else:
-                st.write(bot_template.replace(
-                    "{{MSG}}", message), unsafe_allow_html=True)
+        for message in reversed(st.session_state.conversation):
+            st.write(message)
 
 if __name__ == '__main__':
     Server().main()

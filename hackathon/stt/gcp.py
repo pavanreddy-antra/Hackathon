@@ -11,7 +11,7 @@ class GCPSTT(STTBase):
             api_key = os.getenv('GOOGLE_STT_KEY')
             print(api_key)
         
-        credentials = service_account.Credentials.from_service_account_file('C:\\Users\\Pavan Reddy\\Desktop\\Hackathon\\credentials\\google keys\\stt.json')
+        credentials = service_account.Credentials.from_service_account_file(os.getenv("GCP_CREDENTIALS_PATH"))
         self.client = speech.SpeechClient(credentials=credentials)
 
     async def get_text(self, audio_data):

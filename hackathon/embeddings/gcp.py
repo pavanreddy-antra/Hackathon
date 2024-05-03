@@ -12,8 +12,7 @@ class GCPEmbeddings(EmbeddingsBase):
         self.project_id = project_id or os.getenv('GCP_PROJECT_ID')
         self.location = location
 
-        credentials = service_account.Credentials.from_service_account_file(
-            'C:\\Users\\Pavan Reddy\\Desktop\\Hackathon\\credentials\\google keys\\stt.json')
+        credentials = service_account.Credentials.from_service_account_file(os.getenv("GCP_CREDENTIALS_PATH"))
         aiplatform.init(credentials=credentials, project=self.project_id, location=self.location)
 
     def get_embeddings(self, text):
