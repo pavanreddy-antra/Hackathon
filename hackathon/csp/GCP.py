@@ -307,8 +307,7 @@ class GCPCSP(CSPBase):
     def _get_category(self, prompt, history):
         if len(history) == 0:
             final_prompt = f"""
-            System Prompt: {system_prompt1}
-            {get_category_prompt_if_no_history}\n\n
+            System Prompt: {get_category_prompt_if_no_history}\n\n
             User Prompt: {prompt}
             """
         else:
